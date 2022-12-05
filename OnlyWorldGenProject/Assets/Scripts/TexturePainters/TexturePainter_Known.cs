@@ -23,7 +23,7 @@ public class TexturePainter_Known : BaseTexturePainter
 
                 // randome within a zones color TerrainPainter_...
                 string randomTexture = TextureIDs[Random.Range(0, TextureIDs.Count)];
-
+                print(randomTexture);
                 alphaMaps[x, y, manager.GetLayerForTexture(randomTexture)] = Strength;
 
 

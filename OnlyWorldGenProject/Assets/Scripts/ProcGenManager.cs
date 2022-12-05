@@ -28,7 +28,7 @@ public class ProcGenManager : MonoBehaviour
 
     void Start()
     {
-        GetComponent<GridBreakDown>().GenerateGrid();
+        //GetComponent<GridBreakDown>().GenerateGrid();
     }
 
 
@@ -96,17 +96,21 @@ public class ProcGenManager : MonoBehaviour
         int alphaMapResolution = TargetTerrain.terrainData.alphamapResolution;
 
         //generate texture map
-        Perform_GenerateRextureMapping();
-        
-        Perform_BiomeGeneration(mapResolution);
+        Perform_GenerateTextureMapping();
 
+        //Perform_BiomeGeneration(mapResolution);
+
+        // generate the low resolution biome map
+        Perform_BiomeGeneration_LowResolution((int)Config.BiomeMapResolution);
+        // generate the high resolution biome map
+        Perform_BiomeGeneration_HighResolution((int)Config.BiomeMapResolution, mapResolution);
         // place holder for changing the height
 
         // paint the terrain
         Perform_TerrainPainting(mapResolution, alphaMapResolution);
     }
 
-    void Perform_GenerateRextureMapping()
+    void Perform_GenerateTextureMapping()
     {
         BiomeTextureToTerrainLayerIndex.Clear();
 
@@ -289,6 +293,7 @@ public class ProcGenManager : MonoBehaviour
         System.IO.File.WriteAllBytes("BiomeMap.png", biomeMap.EncodeToPNG());
         */
     }
+
     Vector2Int[] NeighbourOffsets = new Vector2Int[] {
         new Vector2Int(0, 1),
         new Vector2Int(0, -1),
