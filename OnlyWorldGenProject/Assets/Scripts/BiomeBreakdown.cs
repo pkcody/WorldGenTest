@@ -5,7 +5,15 @@ using UnityEngine;
 public class BiomeBreakdown : MonoBehaviour
 {
     [HideInInspector]int mapResolution = 1000;
+    Terrain terrain;
+    TerrainData terData;
 
+    private void Start()
+    {
+        terData = terrain.terrainData;
+        float[,,] maps;
+        //terData.SetAlphamaps(0, 0, maps);
+    }
 
     public void SeparatePixels()
     {

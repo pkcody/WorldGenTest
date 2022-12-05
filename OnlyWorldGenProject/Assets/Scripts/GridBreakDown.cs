@@ -10,6 +10,41 @@ public class GridBreakDown : MonoBehaviour
     public List<Cell> listCells;
     public Cell[,] Grid = new Cell[cellPixelSize, cellPixelSize];
     public int numCells;
+    public Texture2D tex;
+    public Terrain terrain;
+    public TerrainData terData;
+
+    //public void Start()
+    //{
+    //    ApplyTexture();
+    //    Invoke("ClearTexture", 5f);
+    //}
+    public void ApplyTexture()
+    {
+        tex = null;
+        
+        byte[] fileData;
+
+        fileData = System.IO.File.ReadAllBytes("coloredPng.png");
+        tex = new Texture2D(cellPixelSize, cellPixelSize);
+        tex.LoadImage(fileData);
+
+        terData = terrain.terrainData;
+        terData.terrainLayers[0].diffuseTexture = tex;
+    }
+
+    public void ClearTexture()
+    {
+        Color[] resetColors = tex.GetPixels();
+
+        for (int i = 0; i < resetColors.Length; i++)
+        {
+            resetColors[i] = Color.white;
+        }
+
+        tex.SetPixels(resetColors);
+        tex.Apply();
+    }
 
     private void Awake()
     {
